@@ -45,6 +45,7 @@ public class Biblioteca {
     public int cantidadLibrosRegistrados(){
         return listaLibros.size();
     }
+    
     public void agregarLibro(Libro libro){
         listaLibros.add(libro);
     }
