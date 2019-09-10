@@ -41,12 +41,12 @@ public class Biblioteca {
     public ArrayList<Libro> getListaLibros() {
         return listaLibros;
     }
-
-    public void setListaLibros(ArrayList<Libro> listaLibros) {
-        this.listaLibros = listaLibros;
+    
+    public int cantidadLibrosRegistrados(){
+        return listaLibros.size();
     }
-
-    
-    
+    public void agregarLibro(Libro libro){
+        listaLibros.add(libro);
+    }
     
 }
