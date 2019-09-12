@@ -16,12 +16,12 @@ public class Libro {
     private int pages;
     private String fecha;
 
-    public Libro(String titulo, String autor, int isbn, int pages, String fecha) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.isbn = isbn;
-        this.pages = pages;
-        this.fecha = fecha;
+    public Libro() {
+        this.titulo = null;
+        this.autor = null;
+        this.isbn = 0;
+        this.pages = 0;
+        this.fecha = null;
     }
 
     public String getTitulo() {
