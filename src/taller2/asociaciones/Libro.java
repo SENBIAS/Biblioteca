@@ -15,7 +15,6 @@ public class Libro {
     private int isbn;
     private int pages;
     private String fecha;
-    private int cantidadEjemplares;
 
     public Libro(String titulo, String autor, int isbn, int pages, String fecha) {
         this.titulo = titulo;
@@ -23,15 +22,6 @@ public class Libro {
         this.isbn = isbn;
         this.pages = pages;
         this.fecha = fecha;
-        this.cantidadEjemplares=1;
-    }
-
-    public int getCantidadEjemplares() {
-        return cantidadEjemplares;
-    }
-
-    public void setCantidadEjemplares(int cantidadEjemplares) {
-        this.cantidadEjemplares = cantidadEjemplares;
     }
 
     public String getTitulo() {
