@@ -5,6 +5,7 @@
  */
 package taller2.asociaciones;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -13,23 +14,43 @@ import java.util.Scanner;
  */
 public class CRUD 
 {
-    public Libro buscarTitulo(String titulo,Biblioteca biblioteca){
+    public static Libro buscarTitulo(String titulo,ArrayList<Libro> listaLibros){
         int cantidadLibros;
         int recorrerListaLibros =0;
-        cantidadLibros = biblioteca.cantidadLibrosRegistrados();
+        cantidadLibros = listaLibros.size();
+        Libro libro;
         
-        while((!biblioteca.getListaLibros().get(recorrerListaLibros).getTitulo().equals(titulo))&&(recorrerListaLibros < cantidadLibros)){
-            recorrerListaLibros+=1;
-        }
-        
-        if(biblioteca.getListaLibros().get(recorrerListaLibros).getTitulo().equals(titulo)){
-            return biblioteca.getListaLibros().get(cantidadLibros);
+        if(cantidadLibros!=0){
+            while((recorrerListaLibros < cantidadLibros-1)&&(!listaLibros.get(recorrerListaLibros).getAutor().equals(titulo))){
+                recorrerListaLibros+=1;
+            }
+            
+            if(listaLibros.get(recorrerListaLibros).getAutor().equals(titulo)){
+                libro = listaLibros.get(recorrerListaLibros);
+                return libro;
+            }else{
+                libro = null;
+             return libro;
+            }
         }else{
-            return null;
+            libro = null;
+            return libro;
         }
     }
     
-    public void listarLibros(Biblioteca biblioteca){
+    public static void imprimirLibro(Libro libro){
+        if(libro != null){
+            System.out.println("Titulo: "+libro.getTitulo());
+            System.out.println("Autor: "+libro.getAutor());
+            System.out.println("ISBN: "+libro.getIsbn());
+            System.out.println("Paginas: "+libro.getPages());
+            System.out.println("Fecha: "+libro.getFecha());
+        }else{
+            System.out.println("El libro no esta en la lista.");
+        }
+    }
+    
+    public static void listarLibros(Biblioteca biblioteca){
         int cantidadLibros = biblioteca.cantidadLibrosRegistrados();
         
         for(int recorrer = 0;recorrer < cantidadLibros;recorrer++){
@@ -42,7 +63,7 @@ public class CRUD
         }
     }
     
-    private void actualizarTitulo(Libro libroActualizable){
+    private static void actualizarTitulo(Libro libroActualizable){
         Scanner tecladoString = new Scanner(System.in);
         System.out.print("Ingrese el titulo nuevo: "); 
         String nuevoTitulo = tecladoString.nextLine();
@@ -50,7 +71,7 @@ public class CRUD
         System.out.println("Titulo actualizado.");
     }
     
-    private void actualizarAutor(Libro libroActualizable){
+    private static void actualizarAutor(Libro libroActualizable){
         Scanner tecladoString = new Scanner(System.in);
         System.out.print("Ingrese el autor nuevo: "); 
         String nuevoAutor = tecladoString.nextLine();
@@ -58,7 +79,7 @@ public class CRUD
         System.out.println("Autor actualizado.");
     }
     
-    private void actualizarISBN(Libro libroActualizable){
+    private static void actualizarISBN(Libro libroActualizable){
         Scanner tecladoInt = new Scanner(System.in); 
         System.out.print("Ingrese el ISBN nuevo: "); 
         int nuevoISBN = tecladoInt.nextInt();
@@ -66,7 +87,7 @@ public class CRUD
         System.out.println("ISBN actualizado.");
     }
     
-    private void actualizarPaginas(Libro libroActualizable){
+    private static void actualizarPaginas(Libro libroActualizable){
         Scanner tecladoInt = new Scanner(System.in);  
         System.out.print("Ingrese el numero nuevo de paginas: "); 
         int nuevoPaginas = tecladoInt.nextInt();
@@ -74,7 +95,7 @@ public class CRUD
         System.out.println("Paginas actualizadas.");
     }
     
-    private void actualizarFecha(Libro libroActualizable){
+    private static void actualizarFecha(Libro libroActualizable){
         Scanner tecladoString = new Scanner(System.in);
         System.out.print("Ingrese la nueva fecha: "); 
         String nuevaFecha = tecladoString.nextLine();
@@ -82,7 +103,7 @@ public class CRUD
         System.out.println("Fecha actualizada.");
     }
     
-    private void menu(){
+    private static void menu(){
         System.out.println("Elija el dato a actualizar.");
         System.out.println("1.Actualizar titulo.");
         System.out.println("2.Actualizar autor.");
@@ -92,9 +113,14 @@ public class CRUD
         System.out.println("6.Terminar.");
     }
     
-    public void actualizar(String titulo ,Biblioteca biblioteca){
+    /**
+     *
+     * @param titulo
+     * @param listaLibros
+     */
+    public static void actualizar(String titulo ,ArrayList<Libro> listaLibros){
         Libro libroActualizable;
-        libroActualizable = buscarTitulo(titulo, biblioteca);
+        libroActualizable = buscarTitulo(titulo, listaLibros);
         Scanner tecladoInt = new Scanner(System.in);      
         if(libroActualizable != null){
             int option;
@@ -117,14 +143,20 @@ public class CRUD
                 case 5:
                     actualizarFecha(libroActualizable);
                     break;
-                case 7:
+                case 6:
                     break;
             }  
             }while(option < 6);
         }
     }
     
-    public void agregar(Libro libro,Biblioteca biblioteca,int ISBN){
+    /**
+     *
+     * @param libro
+     * @param biblioteca
+     * @param ISBN
+     */
+    public static void agregar(Libro libro,Biblioteca biblioteca,int ISBN){
         String titulo;
         String autor;
         int pages;
@@ -151,12 +183,12 @@ public class CRUD
         biblioteca.agregarLibro(libro);
     }
     
-    public void elminar(Biblioteca biblioteca){
+    public static void elminar(Biblioteca biblioteca){
         String titulo;
         Scanner tecladoString = new Scanner(System.in);
         System.out.print("Ingrese el titulo del libro a eliminar: ");
         titulo = tecladoString.nextLine();
-        Libro libroEliminar = buscarTitulo(titulo, biblioteca);
+        Libro libroEliminar = buscarTitulo(titulo, biblioteca.getListaLibros());
         
         if(libroEliminar != null){
             biblioteca.getListaLibros().remove(libroEliminar);
